@@ -1,5 +1,6 @@
 #include <iostream>
-#include "include/cl.hpp"
+#include <thread>
+#include "../include/cl.hpp"
 
 int main() {
   std::cout << "hello" << std::endl;
