@@ -2,8 +2,6 @@
 
 #include <la.h>
 #include <iostream>
-#include <OpenCL/cl.h>
-
 
 Camera::Camera():
     Camera(400, 400)
@@ -11,8 +9,6 @@ Camera::Camera():
     look = Vector3f(0,0,-1);
     up = Vector3f(0,1,0);
     right = Vector3f(1,0,0);
-
-    std::vector<cl::Platform> all_platforms;
 }
 
 Camera::Camera(unsigned int w, unsigned int h):
