@@ -1,5 +1,15 @@
-Final Project
+Path Tracer
 ======================
+
+GPU Version
+------------
+To run the GPU version, navigate to the GPU/src directory and run the following commands from the terminal.
+```
+cmake .
+make
+./pathtracer
+```
+
 
 **University of Pennsylvania, CIS 561: Advanced Computer Graphics, Final Project**
 
