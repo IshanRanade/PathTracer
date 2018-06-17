@@ -15,15 +15,15 @@ RenderButtonWidget::RenderButtonWidget(QWidget *parent) :
 }
 
 
-RenderDisplayWidget::RenderDisplayWidget(QWidget *parent) :
-    QWidget(parent) {
+RenderDisplayWidget::RenderDisplayWidget(QWidget *parent, int width, int height) :
+    QWidget(parent), width(width), height(height) {
 
     layout = new QVBoxLayout();
-    image = new QImage(1280, 720, QImage::Format_RGB32);
+    image = new QImage(width, height, QImage::Format_RGB32);
 
-    for(int i = 0; i < 1280; ++i) {
-        for(int j = 0; j < 720; ++j) {
-            image->setPixelColor(QPoint(i, j), QColor(0.2,0.4,0.5));
+    for(int i = 0; i < width; ++i) {
+        for(int j = 0; j < height; ++j) {
+            image->setPixelColor(QPoint(i, j), QColor(20,40,50));
         }
     }
 
@@ -31,6 +31,11 @@ RenderDisplayWidget::RenderDisplayWidget(QWidget *parent) :
     label->setPixmap(QPixmap::fromImage(*image));
     layout->addWidget(label);
     setLayout(layout);
+}
+
+void RenderDisplayWidget::setDisplaySize(int width, int height) {
+    this->width = width;
+    this->height = height;
 }
 
 
@@ -54,9 +59,8 @@ void GUI::initLayout() {
     renderButtonWidget = new RenderButtonWidget(this);
     layout->addWidget(renderButtonWidget);
 
-    renderDisplayWidget = new RenderDisplayWidget(this);
+    renderDisplayWidget = new RenderDisplayWidget(this, imageWidth, imageHeight);
     layout->addWidget(renderDisplayWidget);
 
     mainWidget->setLayout(layout);
-    //mainWidget->setFixedSize(QSize(1000,800));
 }

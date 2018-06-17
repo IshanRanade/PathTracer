@@ -74,8 +74,6 @@ int PathTracer::getFrameBuffer() {
 
     initOpenCL(device, context, queue, program, kernel);
 
-    int imageWidth = 100;
-    int imageHeight = 100;
     int rendermode = 1;
 
     //cl::Buffer rayBuffer = cl::Buffer(context, CL_MEM_READ_WRITE, imageWidth * imageHeight

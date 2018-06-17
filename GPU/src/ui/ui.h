@@ -11,40 +11,44 @@
 
 
 class RenderButtonWidget : public QWidget {
-    public:
-        RenderButtonWidget(QWidget *parent);
+public:
+    RenderButtonWidget(QWidget *parent);
 
-    private:
-        QPushButton *button;
-        QVBoxLayout *layout;
+private:
+    QPushButton *button;
+    QVBoxLayout *layout;
 };
 
 
 class RenderDisplayWidget : public QWidget {
-    public:
-        RenderDisplayWidget(QWidget *parent);
+public:
+    RenderDisplayWidget(QWidget *parent, int width, int height);
 
-    private:
-        QVBoxLayout *layout;
-        QImage *image;
-        QLabel *label;
+    void setDisplaySize(int width, int height);
+
+private:
+    int width;
+    int height;
+    QVBoxLayout *layout;
+    QImage *image;
+    QLabel *label;
 };
 
 
 class GUI : public QMainWindow {
-    public:
-        GUI();
+public:
+    GUI();
 
-        void show();
+    void show();
 
-        int imageWidth;
-        int imageHeight;
+    int imageWidth;
+    int imageHeight;
 
-    private:
-        QWidget *mainWidget;
-        QHBoxLayout *layout;
-        RenderButtonWidget *renderButtonWidget;
-        RenderDisplayWidget *renderDisplayWidget;
+private:
+    QWidget *mainWidget;
+    QHBoxLayout *layout;
+    RenderButtonWidget *renderButtonWidget;
+    RenderDisplayWidget *renderDisplayWidget;
 
-        void initLayout();
+    void initLayout();
 };
