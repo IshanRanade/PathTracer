@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 
+
 PathTracer::PathTracer(int imageWidth, int imageHeight) :
     imageWidth(imageWidth), imageHeight(imageHeight) {
 }

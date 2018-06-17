@@ -6,22 +6,23 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Widgets Qml Quick Concurrent REQUIRED)
 
 include_directories(${Qt5Widgets_INCLUDES})
+include_directories(${OpenCL_INCLUDE_DIRS})
+include_directories(include)
 
 # Generate code from ui files
 qt5_wrap_ui(UI_HEADERS mainwindow.ui)
 
-include_directories(${OpenCL_INCLUDE_DIRS})
 link_directories(${OpenCL_LIBRARY})
 
 set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework OpenCL")
 
 file(GLOB SOURCES
-    *.h
-    *.cpp
+    ${PROJECT_SOURCE_DIR}/*.h
+    ${PROJECT_SOURCE_DIR}/*.cpp
+    ${PROJECT_SOURCE_DIR}/ui/*.h
+    ${PROJECT_SOURCE_DIR}/ui/*.cpp
 )
-
-include_directories(include)
 
 add_executable(pathtracer ${SOURCES})
 

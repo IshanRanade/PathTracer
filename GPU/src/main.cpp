@@ -1,8 +1,12 @@
 #include <iostream>
+#include <QApplication>
 #include "pathtracer.h"
+#include "./ui/ui.h"
+
 
 int main(int argc, char **argv) {
-    PathTracer pathtracer = PathTracer(10, 10);
-
-    return 0;
+    QApplication app(argc, argv);
+    GUI gui;
+    gui.show();
+    return app.exec();
 }

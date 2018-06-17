@@ -1,5 +1,6 @@
 #include "../include/cl.hpp"
 
+
 class PathTracer {
     public:
         PathTracer(int width, int height);

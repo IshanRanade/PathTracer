@@ -1,17 +1,19 @@
-#include <iostream>
-#include <fstream>
-#include <streambuf>
-#include <thread>
-#include <vector>
+#include "./ui.h"
 
-#include "../pathtracer.h"
 
-#include <QMainWindow>
-#include <QApplication>
+GUI::GUI() :
+    QMainWindow(), imageWidth(1280), imageHeight(720) {
 
-int main(int argc, char **argv) {
-    // PathTracer pathtracer = PathTracer();
-    // std::cout << pathtracer.getFrameBuffer() << std::endl;
-    QApplication app (argc, argv);
-    return app.exec();
+    initLayout();
+}
+
+void GUI::initLayout() {
+    layout = new QHBoxLayout(this);
+    renderButtonWidget = new RenderButtonWidget(this);
+    layout->addWidget(renderButtonWidget);
+    setLayout(layout);
+}
+
+RenderButtonWidget::RenderButtonWidget(QWidget *parent) :
+    QWidget(parent), button(new QPushButton()) {
 }
