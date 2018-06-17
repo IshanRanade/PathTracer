@@ -1,6 +1,11 @@
 /* OpenCL ray tracing tutorial by Sam Lapere, 2016
 http://raytracey.blogspot.com */
 
+struct Ray {
+    float3 origin;
+    float3 direction;
+};
+
 __kernel void render_kernel(__global float3* output, int width, int height, int rendermode)
 {
     printf("hello");
