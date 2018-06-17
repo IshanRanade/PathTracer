@@ -4,6 +4,8 @@
 #include <streambuf>
 #include <thread>
 #include <vector>
+#include <stdlib.h>
+#include "globals.h"
 
 
 PathTracer::PathTracer(int imageWidth, int imageHeight) :
@@ -50,7 +52,9 @@ void PathTracer::initOpenCL(cl::Device& device, cl::Context context, cl::Command
 	// Create a command queue
 	queue = cl::CommandQueue(context, device);
 
-    std::ifstream file("kernel.cl");
+    //char *real_path = realpath(rel_path, NULL);
+
+    std::ifstream file(KERNEL_ROOT_DIR + "kernel.cl");
     std::string source((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
     program = cl::Program(context, source.c_str());
