@@ -11,7 +11,7 @@
 class PathTracer {
 public:
     PathTracer(int width, int height);
-    int getFrameBuffer();
+    float *getFrameBuffer();
 
 private:
     int imageWidth;

@@ -65,7 +65,7 @@ void PathTracer::initOpenCL(cl::Device& device, cl::Context context, cl::Command
     kernel = cl::Kernel(program, "render_kernel");
 }
 
-int PathTracer::getFrameBuffer() {
+float *PathTracer::getFrameBuffer() {
     cl::Device device;
     cl::Context context;
     cl::CommandQueue queue;

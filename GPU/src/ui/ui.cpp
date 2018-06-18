@@ -14,7 +14,6 @@ RenderButtonWidget::RenderButtonWidget(QWidget *parent) :
     setLayout(layout);
 }
 
-
 RenderDisplayWidget::RenderDisplayWidget(QWidget *parent, int width, int height) :
     QWidget(parent), width(width), height(height) {
 

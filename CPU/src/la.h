@@ -4,7 +4,6 @@
 // angle arguments. The documentation may not always reflect this fact.
 #define GLM_FORCE_RADIANS
 
-#define GLM_CIS461  // Don't copy this include!
 // Primary GLM library
 #    include <glm/glm.hpp>
 // For glm::translate, glm::rotate, and glm::scale.
@@ -13,7 +12,6 @@
 #    include <glm/gtx/string_cast.hpp>
 // For glm::value_ptr.
 #    include <glm/gtc/type_ptr.hpp>
-#undef GLM_CIS461
 
 #include <QMatrix4x4>
 
