@@ -8,6 +8,9 @@
 #include "globals.h"
 
 
+/*
+    This class attaches to a QApplication and listens to keyboard inputs.
+*/
 class AppDialog : public QObject {
 public:
     QApplication *app;
@@ -32,25 +35,34 @@ public:
     }
 };
 
-class App : public QApplication {
+/*
+    This class is the main app and implements an MVC.
+    It contains a reference to the GUI, the PathTracer, and the QApplication.
+*/
+class App {
 public:
-    App(int argc, char **argv) :
-        QApplication(argc, argv) {
+    GUI *gui;
+    PathTracer *pathtracer;
+    QApplication *app;
+
+    App(int argc, char **argv) {
+
+        app = new QApplication(argc, argv);
+        gui = new GUI();
+        pathtracer = new PathTracer(gui->imageWidth, gui->imageHeight);
+        
+        AppDialog *dialog = new AppDialog(app);
+        app->installEventFilter(dialog);
+        gui->show();
+    }
+
+    int startApp() {
+        return app->exec();
     }
 };
 
-
+// Start the program
 int main(int argc, char **argv) {
-    QApplication *app = new QApplication(argc, argv);
-
-    GUI gui;
-    gui.show();
-
-    PathTracer pathtracer(gui.imageWidth, gui.imageHeight);
-    pathtracer.getFrameBuffer();
-
-    AppDialog *dialog = new AppDialog(app);
-    app->installEventFilter(dialog);
-
-    return app->exec();
+    App app = App(argc, argv);
+    return app.startApp();
 }
