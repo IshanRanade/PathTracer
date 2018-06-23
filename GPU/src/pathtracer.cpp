@@ -61,11 +61,14 @@ void PathTracer::initOpenCL(cl::Device& device, cl::Context context, cl::Command
     cl_int result = program.build({device});
     if (result) std::cout << "\nError during compilation OpenCL code!!!\n (" << result << ")" << std::endl;
 	if (result == CL_BUILD_PROGRAM_FAILURE) printErrorLog(program, device);
-
-    kernel = cl::Kernel(program, "render_kernel");
 }
 
-float *PathTracer::getFrameBuffer() {
+struct Ray {
+    float origin[3];
+    float direction[3];
+};
+
+std::vector<float> PathTracer::getFrameBuffer() {
     cl::Device device;
     cl::Context context;
     cl::CommandQueue queue;
@@ -74,21 +77,35 @@ float *PathTracer::getFrameBuffer() {
 
     initOpenCL(device, context, queue, program, kernel);
 
-    int rendermode = 1;
-
-    //cl::Buffer rayBuffer = cl::Buffer(context, CL_MEM_READ_WRITE, imageWidth * imageHeight
-
-    cl::Buffer cl_output = cl::Buffer(context, CL_MEM_WRITE_ONLY, imageWidth * imageHeight * sizeof(cl_float3));
-
-    kernel.setArg(0, cl_output);
+    // Generate the initial camera rays
+    kernel = cl::Kernel(program, "generateCameraRay");
+    cl::Buffer rayBuffer = cl::Buffer(context, CL_MEM_READ_WRITE, imageWidth * imageHeight * sizeof(Ray));
+    kernel.setArg(0, rayBuffer);
 	kernel.setArg(1, imageWidth);
 	kernel.setArg(2, imageHeight);
-	kernel.setArg(3, rendermode);
 
     queue.enqueueNDRangeKernel(kernel, NULL, 16, 16);
 	queue.finish();
 
+    // Advance the rays
+    // kernel = cl::Kernel(program, "generateCameraRays");
+
+    // cl::Buffer cl_output = cl::Buffer(context, CL_MEM_WRITE_ONLY, imageWidth * imageHeight * sizeof(cl_float3));
+
+    // kernel.setArg(0, cl_output);
+	// kernel.setArg(1, imageWidth);
+	// kernel.setArg(2, imageHeight);
+
+    float* frameBufferData = (float*) malloc(sizeof(float) * imageWidth * imageHeight * 3);
+    queue.enqueueReadBuffer(rayBuffer, false, 0, sizeof(float) * imageWidth * imageHeight * 3, frameBufferData, 0, NULL);
+    
+    std::vector<float> result;
+    for(int i = 0; i < imageWidth * imageHeight * 3; i++) {
+        result.push_back(frameBufferData[i]);
+    }
+    free(frameBufferData);
+
     std::cout << "done" << std::endl;
 
-    return 0;
+    return result;
 }

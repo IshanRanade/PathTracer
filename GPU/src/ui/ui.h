@@ -31,6 +31,7 @@ public:
     RenderDisplayWidget(QWidget *parent, int width, int height);
 
     void setDisplaySize(int width, int height);
+    void updateDisplay(std::vector<float> rgbData);
 
 private:
     int width;
@@ -51,6 +52,7 @@ public:
     GUI();
 
     void show();
+    void updateDisplay(std::vector<float> rgbData);
 
     int imageWidth;
     int imageHeight;

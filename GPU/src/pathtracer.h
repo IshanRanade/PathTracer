@@ -11,7 +11,7 @@
 class PathTracer {
 public:
     PathTracer(int width, int height);
-    float *getFrameBuffer();
+    std::vector<float> getFrameBuffer();
 
 private:
     int imageWidth;

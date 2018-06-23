@@ -1,12 +1,62 @@
 /* OpenCL ray tracing tutorial by Sam Lapere, 2016
 http://raytracey.blogspot.com */
 
+
+
+struct Vector {
+    float x;
+    float y;
+    float z;
+};
+
 struct Ray {
     float3 origin;
     float3 direction;
 };
 
-__kernel void render_kernel(__global float3* output, int width, int height, int rendermode)
+struct Camera {
+    struct Vector look;
+    struct Vector up;
+    struct Vector right;
+    float fovy;
+    int width;
+    int height;
+    float nearClip;
+    float farClip;
+    struct Vector eye;
+    struct Vector ref;
+    struct Vector worldUp;
+};
+
+
+__kernel void generateCameraRay(__global float3* rays, int imageWidth, int imageHeight) {
+    struct Camera camera = 
+        { 
+            .look = { 0.0f, 0.0f, -1.0f },
+            .up = { 0.0f, 1.0f, 0.0f },
+            .right = { 1.0f, 0.0f, 0.0f },
+            .fovy = 45.0f,
+            .width = 1280,
+            .height = 720,
+            .nearClip = 0.1f,
+            .farClip = 1000.0f,
+            .eye = { 0.0f, 0.0f, 10.0f },
+            .ref = { 0.0f, 0.0f, 0.0f },
+            .worldUp = { 0.0f, 1.0f, 0.0f }
+        };
+
+    int index = get_global_id(0);
+    rays[index]   = 0.0f;
+    rays[index+1] = 0.0f;
+    rays[index+2] = 255.0f;
+}
+
+__kernel void advanceRay(__global float3* output, int numRays) {
+
+}
+
+
+__kernel void renderKernel(__global float3* output, int width, int height, int rendermode)
 {
     printf("hello");
 	// const int work_item_id =  get_global_id(0);		/* the unique global id of the work item for the current pixel */

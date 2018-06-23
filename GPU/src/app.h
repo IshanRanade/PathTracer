@@ -53,14 +53,22 @@ public:
         
         AppDialog *dialog = new AppDialog(app);
         app->installEventFilter(dialog);
+
         gui->show();
+        
+
+        // TEMP
+        // Render the scene immediately and display it
+        renderAndDisplayScene();
+
     }
 
     int startApp() {
         return app->exec();
     }
 
-    void pathtrace() {
-        
+    void renderAndDisplayScene() {
+        std::vector<float> frameBufferData = pathtracer->getFrameBuffer();
+        gui->updateDisplay(frameBufferData);
     }
 };
