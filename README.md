@@ -4,13 +4,6 @@ Pathtracer
 Renders
 ------------
 
-Bidirectional Lighting
-
-25 square root sampled, 8 recursion depth
-
-![](Bidirectional_25_8.png)
-
-
 Implicit Torus
 
 25 square root sampled, 8 recursion depth
@@ -30,3 +23,10 @@ Point Light
 10 square root sampled, 5 recursion depth
 
 ![](PointLight_10_5.png)
+
+
+Bidirectional Lighting
+
+25 square root sampled, 8 recursion depth
+
+![](Bidirectional_25_8.png)
